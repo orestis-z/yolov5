@@ -13,13 +13,12 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn as sn
 import torch
 from PIL import Image, ImageDraw, ImageFont
 
-from utils.general import (LOGGER, Timeout, check_requirements, clip_coords, increment_path, is_ascii, is_chinese,
+from yolov5.utils.general import (LOGGER, Timeout, check_requirements, clip_coords, increment_path, is_ascii, is_chinese,
                            try_except, user_config_dir, xywh2xyxy, xyxy2xywh)
-from utils.metrics import fitness
+from yolov5.utils.metrics import fitness
 
 # Settings
 CONFIG_DIR = user_config_dir()  # Ultralytics settings dir
@@ -328,6 +327,8 @@ def plot_val_study(file='', dir='', x=None):  # from utils.plots import *; plot_
 @try_except  # known issue https://github.com/ultralytics/yolov5/issues/5395
 @Timeout(30)  # known issue https://github.com/ultralytics/yolov5/issues/5611
 def plot_labels(labels, names=(), save_dir=Path('')):
+    import seaborn as sn
+
     # plot dataset labels
     LOGGER.info(f"Plotting labels to {save_dir / 'labels.jpg'}... ")
     c, b = labels[:, 0], labels[:, 1:].transpose()  # classes, boxes
